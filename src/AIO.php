@@ -22,11 +22,11 @@ class AIO {
 	$alipay_user_name   = 'Stage Test';
 	*/
 
-    protected $AllLiveAction = "https://payment.allpay.com.tw/Cashier/AioCheckOut/V2";
-    protected $AllTestAction = "https://payment-stage.allpay.com.tw/Cashier/AioCheckOut/V2";
+    protected $AllLiveEndPoint = "https://payment.allpay.com.tw/Cashier/AioCheckOut/V2";
+    protected $AllTestEndPoint = "https://payment-stage.allpay.com.tw/Cashier/AioCheckOut/V2";
 
-    protected $EcLiveAction = "https://payment.ecpay.com.tw/Cashier/AioCheckOut/V2";
-    protected $EcTestAction = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V2";
+    protected $EcLiveEndPoint = "https://payment.ecpay.com.tw/Cashier/AioCheckOut/V2";
+    protected $EcTestEndPoint = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V2";
 
     public function __construct(){}
 
@@ -143,7 +143,7 @@ class AIO {
 
         $params['CheckMacValue'] = $this->_getMacValue($params);
 
-        $Html .= '<form name="_AIOForm" method="post" action="'.$this->setActionMode().'">';
+        $Html .= '<form name="_AIOForm" method="post" action="'.$this->setEndPointMode().'">';
 		foreach ($params as $key => $val) {
 		    $Html .= "<input type='hidden' name='".$key."' value='".$val."'>";
 		}
@@ -195,13 +195,13 @@ class AIO {
 	}
 
 	# 路徑
-	protected function setActionMode(){
+	protected function setEndPointMode(){
         switch ($this->gateWay) {
             case 'AllPay':
-                return $this->testMode ? $this->AllTestAction : $this->AllLiveAction;
+                return $this->testMode ? $this->AllTestEndPoint : $this->AllLiveEndPoint;
                 break;
             case 'EcPay':
-                return $this->testMode ? $this->EcTestAction : $this->EcLiveAction;
+                return $this->testMode ? $this->EcTestEndPoint : $this->EcLiveEndPoint;
                 break;
         }
         
